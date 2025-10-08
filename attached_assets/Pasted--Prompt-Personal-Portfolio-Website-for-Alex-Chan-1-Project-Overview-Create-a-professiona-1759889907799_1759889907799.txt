@@ -1,0 +1,259 @@
+# Prompt: Personal Portfolio Website for Alex Chan
+
+
+
+## 1. Project Overview
+
+
+
+Create a professional, clean, and modern personal portfolio website for a recent business school graduate. The website should function as a digital resume to attract potential employers.
+
+
+
+* **Name:** Alex Chan
+
+* **Professional Title:** Recent Business Graduate | Aspiring Marketing Strategist | Data-Driven Analyst
+
+
+
+## 2. Target Audience & Goal
+
+
+
+* **Audience:** Potential employers, recruiters, and hiring managers.
+
+* **Goal:** To showcase education, skills, and experience in a compelling way to secure job interviews.
+
+
+
+## 3. Tone & Style
+
+
+
+* **Tone:** Professional, confident, and approachable.
+
+* **Visual Style:** Minimalist, modern, with ample white space.
+
+* **Color Palette:**
+
+    * **Primary:** Dark Navy Blue (`#0A2342`) and White (`#FFFFFF`).
+
+    * **Accent:** Muted Gold (`#B8860B`) or Calm Teal (`#4682B4`) for buttons, links, and highlights.
+
+* **Typography:** Use a clean, readable sans-serif font family.
+
+    * **Recommended Fonts:** `Lato`, `Montserrat`, or `Poppins`.
+
+
+
+## 4. Website Structure (Single-Page Scroll)
+
+
+
+### Header/Navigation Bar
+
+* Should be "sticky" (fixed at the top on scroll).
+
+* Include navigation links that scroll to the corresponding sections: `Home`, `About`, `Experience`, `Skills`, `Contact`.
+
+
+
+### Section 1: Hero
+
+* **Layout:** Two-column.
+
+* **Left Column:**
+
+    * Professional headshot of Alex Chan (image provided).
+
+* **Right Column:**
+
+    * **Name:** `Alex Chan` (large, prominent font).
+
+    * **Headline:** `Recent Business Graduate from Lingnan University, passionate about leveraging data to drive marketing success.`
+
+    * **Call-to-Action Buttons:**
+
+        1.  `View My Resume` (links to a PDF file).
+
+        2.  `Contact Me` (scrolls to the Contact section).
+
+
+
+### Section 2: About Me
+
+* Use the provided "About Me" text.
+
+* Maintain a clean layout with generous spacing.
+
+* (Optional) Use a subtle decorative line or shape to separate this section from the next.
+
+
+
+### Section 3: Experience
+
+* **Layout:** A clean, vertical timeline format.
+
+* Use icons to differentiate experience types (e.g., a briefcase icon for internships, a trophy icon for competitions).
+
+* **Content:**
+
+    1.  **Internship Experience:**
+
+        * Display company, role, dates, and a bulleted list of achievements.
+
+    2.  **Case Competition Experience:**
+
+        * Display competition name, role, and a summary of accomplishments.
+
+
+
+### Section 4: Education & Skills
+
+* **Layout:** Two-column.
+
+* **Left Column: Education**
+
+    * University Name: `Lingnan University`
+
+    * Degree Title
+
+    * Graduation Date
+
+    * Key Coursework
+
+    * GPA & Honors
+
+* **Right Column: Skills**
+
+    * Organize skills under the following headings:
+
+        * `Languages`
+
+        * `Technical Skills`
+
+        * `Soft Skills`
+
+    * Use a clean list or a tag-cloud format for display.
+
+
+
+### Section 5: Contact
+
+* **Heading:** A simple and friendly message like "Let's Connect."
+
+* **Email:** Clearly display the email address.
+
+* **Social Links:** Add clickable icons linking to the LinkedIn profile.
+
+* **(Optional) Contact Form:** A simple form with fields for `Name`, `Email`, and `Message`.
+
+
+
+### Footer
+
+* A simple, clean footer containing:
+
+    * `Alex Chan`
+
+    * Email Address
+
+    * Link to LinkedIn Profile
+
+
+
+## 5. Technical Requirements
+
+
+
+* **Responsiveness:** The website must be fully responsive and optimized for mobile, tablet, and desktop screens.
+
+* **SEO:** Optimize for search engines using keywords such as "Alex Chan," "Lingnan University business graduate," "marketing," and "Hong Kong."
+
+
+
+---
+
+
+
+## 6. Provided Content for Website
+
+
+
+### **Headshot**
+
+* *(Use the attached image file for Alex Chan's headshot)*
+
+
+
+### **About Me Text**
+
+> Hello! I'm Alex Chan, a motivated and detail-oriented recent graduate from Lingnan University's Business School with a Bachelor of Business Administration in Marketing and a minor in Business Analytics. My time at Lingnan University equipped me with a strong foundation in business strategy, market analysis, and quantitative reasoning. I am passionate about leveraging data to drive business growth and create impactful brand stories. Through a challenging internship at Prudential Hong Kong and leading my team to the finals of the KPMG x HKUST Case Competition, I have honed my skills in teamwork, strategic planning, and presenting complex ideas clearly. I am eager to apply my academic knowledge and practical experience to a challenging entry-level role in a dynamic organization.
+
+
+
+### **Education**
+
+* **Institution:** Lingnan University | Hong Kong
+
+* **Degree:** Bachelor of Business Administration (Honours) - Major in Marketing, Minor in Business Analytics
+
+* **Dates:** September 2021 - June 2025
+
+* **GPA:** 3.6 / 4.0
+
+* **Honors/Awards:** Dean's List (2023, 2024), HSBC Hong Kong Scholarship for Business Students (2023).
+
+* **Key Coursework:** Digital Marketing Strategy, Data Visualization for Business, Strategic Management, Consumer Behavior Analytics, International Finance.
+
+
+
+### **Experience**
+
+* **Digital Marketing Intern | Prudential Hong Kong Limited**
+
+    * *June 2024 - August 2024*
+
+    * Managed the social media content calendar for the 'PRUHealth' campaign, resulting in a 20% increase in follower engagement on Instagram and Facebook.
+
+    * Conducted competitive analysis on emerging InsurTech platforms, presenting a report whose findings were incorporated into the marketing team's Q4 strategic planning.
+
+    * Assisted in creating and A/B testing copy for an email marketing campaign to 50,000+ subscribers, contributing to a 25% open rate, which was 5% above the industry average.
+
+    * Utilized Google Analytics and SEMrush to track website traffic and paid ad performance, helping to compile weekly performance dashboards for management.
+
+
+
+* **Team Captain | KPMG x HKUST International Case Competition 2025**
+
+    * *February 2025 - March 2025*
+
+    * Led a team of four to achieve the First Runner-up position among 50+ participating teams from universities across Asia.
+
+    * Developed a comprehensive and financially viable market entry strategy for a global electric vehicle (EV) brand targeting the Southeast Asian market.
+
+    * Personally responsible for financial modeling, market sizing, and risk assessment components of the proposal.
+
+    * Pitched our final strategy to a panel of KPMG senior partners and industry executives, receiving commendation for our in-depth analysis and innovative approach.
+
+
+
+### **Skills**
+
+* **Languages:** English (Fluent), Cantonese (Native), Mandarin (Proficient)
+
+* **Technical Skills:** Microsoft Office Suite (Advanced Excel including PivotTables & VLOOKUP), Google Analytics (GA4 Certified), Tableau, Salesforce (Basic), Canva, Python (Basic for Data Analysis)
+
+* **Soft Skills:** Strategic Planning, Leadership, Public Speaking, Analytical Thinking, Team Collaboration, Adaptability
+
+
+
+### **Contact Information**
+
+* **Message:** "I am actively seeking full-time opportunities in marketing and business analysis and would love to connect."
+
+* **Email:** `alex.chan.profile@email.com`
+
+* **LinkedIn:** `linkedin.com/in/alex-chan-lingnan`
+
+* **Resume:** *(Provide a link to download the PDF resume)*
