@@ -33,8 +33,15 @@ Preferred communication style: Simple, everyday language.
 **Component Structure**
 - Page components in `client/src/pages/`
 - Reusable UI components in `client/src/components/ui/`
-- Feature components in `client/src/components/` (header, hero, about, experience, etc.)
+- Feature components in `client/src/components/` (header, hero, about, experience, contact, chatbot, etc.)
 - Single-page application with smooth scroll navigation between sections
+
+**AI Chatbot Feature**
+- Interactive AI assistant powered by Google Gemini 2.0 Flash API
+- Helps recruiters learn about Alex's professional background, skills, and experience
+- Secure architecture: API calls proxied through backend endpoint to protect API key
+- System prompt stored server-side with comprehensive Alex Chan profile data
+- Real-time conversational interface with typing indicators and error handling
 
 ### Backend Architecture
 
@@ -46,6 +53,7 @@ Preferred communication style: Simple, everyday language.
 **API Endpoints**
 - `POST /api/contact` - Accepts contact form submissions
 - `GET /api/contact/messages` - Retrieves stored contact messages (admin purpose)
+- `POST /api/chat` - Secure proxy endpoint for AI chatbot (calls Gemini API server-side)
 
 **Development & Production Setup**
 - Vite middleware integration in development mode for HMR
@@ -98,6 +106,11 @@ Preferred communication style: Simple, everyday language.
 **Session Management**
 - connect-pg-simple - PostgreSQL session store (configured but authentication not fully implemented)
 
+**AI Integration**
+- Google Gemini 2.0 Flash API for conversational AI chatbot
+- Secure server-side API integration (API key stored in environment variables)
+- Backend proxy endpoint prevents client-side key exposure
+
 ### Design Decisions
 
 **Monorepo Structure**
@@ -120,6 +133,32 @@ Preferred communication style: Simple, everyday language.
 
 **SEO & Accessibility**
 - Semantic HTML structure
-- Meta tags for SEO and Open Graph
+- Meta tags for SEO and Open Graph (keywords: Alex Chan, Lingnan University, Business Graduate, Marketing, Hong Kong)
 - ARIA labels and roles where appropriate
 - Data-testid attributes for testing
+
+**Security Best Practices**
+- API keys stored securely in environment variables (VITE_GEMINI_API_KEY, SESSION_SECRET)
+- Sensitive operations (Gemini API calls) handled server-side only
+- Backend proxy pattern to prevent client-side key exposure
+- Zod validation for all API endpoints
+- Input sanitization and error handling
+
+### Recent Changes (October 2025)
+
+**AI Chatbot Implementation**
+- Added interactive AI chatbot using Google Gemini 2.0 Flash API
+- Initially implemented with client-side API calls (security vulnerability)
+- Refactored to secure backend architecture:
+  - Created `/api/chat` endpoint in server/routes.ts
+  - Moved system prompt and API key handling to server-side
+  - Frontend chatbot component now calls backend endpoint only
+  - Added chatMessageSchema in shared/schema.ts for request validation
+- Chatbot trained on Alex's comprehensive professional profile
+- Tested and verified functionality with end-to-end tests
+
+**Security Recommendations for Production**
+1. Rotate the VITE_GEMINI_API_KEY if the old key was exposed
+2. Implement rate limiting on `/api/chat` endpoint to prevent abuse
+3. Monitor server logs for Gemini API failures
+4. Consider adding authentication/session tracking for chatbot usage analytics
