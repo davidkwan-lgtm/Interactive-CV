@@ -5,6 +5,7 @@ import Experience from "@/components/experience";
 import EducationSkills from "@/components/education-skills";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
+import Chatbot from "@/components/chatbot";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <Chatbot />
     </div>
   );
 }
