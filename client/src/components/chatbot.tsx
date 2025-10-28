@@ -130,12 +130,17 @@ export default function Chatbot() {
     setIsLoading(true);
 
     try {
-      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
       
-      const chatHistory = newMessages.map(msg => ({
-        role: msg.role,
-        parts: [{ text: msg.text }]
-      }));
+      // Include system prompt as first message in conversation
+      const chatHistory = [
+        { role: 'user', parts: [{ text: ALEX_SYSTEM_PROMPT }] },
+        { role: 'model', parts: [{ text: "Understood. I am Alex's Interactive Resume and will answer questions about his professional profile following those guidelines." }] },
+        ...newMessages.map(msg => ({
+          role: msg.role,
+          parts: [{ text: msg.text }]
+        }))
+      ];
 
       const response = await fetch(apiUrl, {
         method: 'POST',
@@ -143,15 +148,18 @@ export default function Chatbot() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          contents: chatHistory,
-          systemInstruction: {
-            parts: [{ text: ALEX_SYSTEM_PROMPT }]
-          }
+          contents: chatHistory
         }),
       });
 
       if (!response.ok) {
-        throw new Error(`API Error: ${response.statusText}`);
+        const errorText = await response.text();
+        console.error('API Error Details:', {
+          status: response.status,
+          statusText: response.statusText,
+          errorText: errorText
+        });
+        throw new Error(`API Error: ${response.status} ${response.statusText}`);
       }
 
       const result = await response.json();
