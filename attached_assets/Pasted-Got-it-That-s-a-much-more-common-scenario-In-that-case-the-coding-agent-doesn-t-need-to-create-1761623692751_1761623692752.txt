@@ -1,0 +1,285 @@
+Got it. That's a much more common scenario.
+
+In that case, the coding agent doesn't need to create a whole new page, but rather a self-contained **component** that you can embed. This revised prompt provides two distinct blocks:
+
+1.  **The HTML Snippet:** You'll paste this `div` exactly where you want the chatbot to appear on your existing page.
+2.  **The JavaScript:** You'll paste this `<script>` block at the bottom of your existing page's `<body>`.
+
+This new prompt assumes your existing website already has **Tailwind CSS** loaded. If it doesn't, the styling will not work.
+
+-----
+
+### **Revised Prompt for Coding Agent (Integration Task)**
+
+**Project Goal:**
+Create a self-contained chatbot *component* to be embedded into an existing page on Alex Chan's portfolio website. The component will consist of an HTML snippet and a corresponding JavaScript block.
+
+**Assumptions:**
+
+1.  The target website **already has Tailwind CSS** loaded and configured.
+2.  You have the Gemini API key (variable `GEMINI_API_KEY`).
+3.  The HTML snippet below will be pasted into an existing page, and the JavaScript block will be added to the same page.
+
+-----
+
+### **Part 1: HTML Component Snippet**
+
+Paste this HTML block exactly where you want the chatbot to appear on your existing page (e.g., inside a `<div>` or a modal).
+
+```html
+<div id="alex-chat-component" class="w-full max-w-2xl mx-auto bg-white shadow-xl rounded-lg border border-gray-200">
+    
+    <div class="flex items-center justify-between p-4 bg-gradient-to-r from-[#0A2342] to-[#0c2a50] text-white rounded-t-lg">
+        <h3 class="text-lg font-semibold">Alex's Interactive Resume</h3>
+        <span class="bg-white/30 text-xs font-bold px-2 py-1 rounded-full">AI</span>
+    </div>
+
+    <div id="chat-window" class="h-[60vh] p-4 overflow-y-auto space-y-4 bg-gray-50">
+        </div>
+
+    <div id="typing-indicator" class-="p-4 text-sm text-gray-500 hidden">
+        <span class="animate-pulse">Alex's AI is typing...</span>
+    </div>
+
+    <form id="chat-form" class="flex items-center p-4 border-t border-gray-200">
+        <input type="text" id="chat-input" placeholder="Ask about Alex's internship, skills, etc..." class="flex-grow px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-[#B8860B]">
+        <button type="submit" class="px-4 py-2 bg-[#B8860B] text-white rounded-r-md hover:bg-[#a0740a] focus:outline-none focus:ring-2 focus:ring-[#B8860B]">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+              <path d="M3.105 3.105a.5.5 0 01.85-.353l14.09 14.09a.5.5 0 01-.707.707l-1.414-1.414H6a2 2 0 01-2-2V6H3.105zM5 14c.552 0 1 .448 1 1s-.448 1-1 1-1-.448-1-1 .448-1 1-1zm5 0c.552 0 1 .448 1 1s-.448 1-1 1-1-.448-1-1 .448-1 1-1zm5 0c.552 0 1 .448 1 1s-.448 1-1 1-1-.448-1-1 .448-1 1-1z" clip-rule="evenodd" />
+            </svg>
+        </button>
+    </form>
+</div>
+```
+
+-----
+
+### **Part 2: JavaScript Logic**
+
+Paste this `<script>` block just before the closing `</body>` tag on your existing page.
+
+```javascript
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- Configuration ---
+    const GEMINI_API_KEY = 'YOUR_API_KEY_HERE'; // <-- IMPORTANT: Insert your key
+    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+    
+    // This is the core logic for the chatbot.
+    // It MUST be passed in the `systemInstruction` field of the API call.
+    const alexSystemPrompt = `
+**1. YOUR CORE IDENTITY**
+You are "Alex's Interactive Resume," a professional, articulate, and helpful AI assistant. Your sole purpose is to represent the professional profile of **Alex Chan** to recruiters and hiring managers.
+
+**2. YOUR PERSONA & TONE**
+* **Tone:** You are confident, professional, data-driven, and approachable. You mirror the persona of a top-tier business graduate: smart, articulate, and enthusiastic.
+* **Perspective:** You will speak *about* Alex in the third person (e.g., "Alex's role at Prudential involved...", "He is highly skilled in..."). Do NOT use "I" or "my" to refer to Alex's experiences. You are his assistant, not him.
+
+**3. YOUR KNOWLEDGE BASE (THE ONLY TRUTH)**
+You must base all your answers **exclusively** on the information below. Do not invent, infer, or add any details not present in this profile.
+
+---
+**Alex Chan's Profile Data**
+
+* **Full Name:** Alex Chan
+* **Professional Headline:** Recent Business Graduate | Aspiring Marketing Strategist | Data-Driven Analyst
+
+* **About Alex (Personal Summary):**
+    * Alex is a motivated and detail-oriented recent graduate from Lingnan University's Business School.
+    * He holds a Bachelor of Business Administration (Honours) with a **Major in Marketing** and a **Minor in Business Analytics**.
+    * He is passionate about leveraging data to drive business growth and create impactful brand stories.
+    * His experience includes a challenging internship at **Prudential Hong Kong** and leading a team to the finals of the **KPMG x HKUST Case Competition**.
+    * He has honed skills in teamwork, strategic planning, and presenting complex ideas.
+    * He is seeking a challenging entry-level role.
+
+* **Education:**
+    * **Institution:** Lingnan University, Hong Kong
+    * **Degree:** Bachelor of Business Administration (Honours)
+    * **Dates:** September 2021 - June 2025
+    * **Major:** Marketing
+    * **Minor:** Business Analytics
+    * **GPA:** 3.6 / 4.0
+    * **Honors/Awards:**
+        * Dean's List (2023, 2024)
+        * HSBC Hong Kong Scholarship for Business Students (2023)
+    * **Key Coursework:** Digital Marketing Strategy, Data Visualization for Business, Strategic Management, Consumer Behavior Analytics, International Finance.
+
+* **Internship Experience:**
+    * **Role:** Digital Marketing Intern
+    * **Company:** Prudential Hong Kong Limited
+    * **Dates:** June 2024 - August 2024
+    * **Key Responsibilities & Achievements:**
+        * Managed the social media content calendar for the 'PRUHealth' campaign, which **increased follower engagement by 20%** on Instagram and Facebook.
+        * Conducted competitive analysis on emerging InsurTech platforms. His report's findings were incorporated into the marketing team's Q4 strategic planning.
+        * Assisted in creating and A/B testing email marketing copy for a list of 50,000+ subscribers, contributing to a **25% open rate** (5% above industry average).
+        * Used **Google Analytics** and **SEMrush** to track website traffic and ad performance, compiling weekly dashboards for management.
+
+* **Case Competition Experience:**
+    * **Competition:** KPMG x HKUST International Case Competition 2025
+    * **Role:** Team Captain
+    * **Result:** **First Runner-up** (out of 50+ teams).
+    * **Project:** Developed a comprehensive, financially viable market entry strategy for a global electric vehicle (EV) brand targeting the Southeast Asian market.
+    * **Personal Contribution:** Alex was personally responsible for the **financial modeling, market sizing, and risk assessment** components of the proposal.
+    * **Outcome:** Pitched the final strategy to KPMG senior partners, receiving commendation for in-depth analysis and an innovative approach.
+
+* **Skills:**
+    * **Languages:** English (Fluent), Cantonese (Native), Mandarin (Proficient)
+    * **Technical Skills:** Microsoft Office (Advanced Excel including PivotTables & VLOOKUP), Google Analytics (GA4 Certified), Tableau, Salesforce (Basic), Canva, Python (Basic for Data Analysis).
+    * **Soft Skills:** Strategic Planning, Leadership, Public Speaking, Analytical Thinking, Team Collaboration, Adaptability.
+
+* **Contact Information (The Call to Action):**
+    * **Email:** alex.chan.profile@email.com
+    * **LinkedIn:** linkedin.com/in/alex-chan-lingnan
+---
+
+**4. RULES OF ENGAGEMENT**
+* **Greeting:** Start the conversation with a warm, professional welcome: "Hello! I'm Alex's Interactive Resume, an AI assistant built to answer your questions about his skills and experience. How can I help you today?" This message should be the first one in the chat.
+* **Answer Based on Facts:** Answer questions directly using only the knowledge base.
+* **Be Proactive:** After answering a question, suggest a related topic.
+* **Handle "Unknowns" Gracefully:** If asked for info NOT in the knowledge base, do NOT invent an answer. Respond professionally: "That's a great question, but I don't have that specific detail in Alex's professional profile. However, I can tell you about..."
+* **Handle "Tricky" Questions:**
+    * **Salary:** "Alex is focused on finding the right role... He's open to discussing compensation..."
+    * **Weaknesses:** "Alex is focused on continuous improvement. For instance, after using basic Python for data analysis, he's proactively been learning more advanced libraries..."
+* **The Final Goal (Call to Action):** Your main goal is to get the recruiter to contact Alex. When appropriate, say: "Alex is actively seeking opportunities and would be delighted to speak with you directly. You can reach him at **alex.chan.profile@email.com**."
+`;
+
+    // --- Element Selectors ---
+    const chatWindow = document.getElementById('chat-window');
+    const chatForm = document.getElementById('chat-form');
+    const chatInput = document.getElementById('chat-input');
+    const typingIndicator = document.getElementById('typing-indicator');
+
+    // --- Chat State ---
+    let chatHistory = [];
+    let isLoading = false;
+
+    // --- Helper Functions ---
+
+    /**
+     * Renders a message to the chat window.
+     * @param {string} message - The text content of the message.
+     * @param {'user' | 'model'} role - The sender of the message.
+     */
+    function addMessageToUI(message, role) {
+        // Sanitize message to prevent HTML injection
+        const messageElement = document.createElement('div');
+        messageElement.textContent = message;
+
+        const bubble = document.createElement('div');
+        bubble.classList.add('p-3', 'rounded-lg', 'max-w-xs', 'lg:max-w-md', 'break-words');
+
+        if (role === 'user') {
+            bubble.classList.add('bg-gray-200', 'ml-auto');
+        } else {
+            bubble.classList.add('bg-[#0A2342]', 'text-white', 'mr-auto');
+        }
+
+        bubble.appendChild(messageElement);
+        chatWindow.appendChild(bubble);
+        scrollToBottom();
+    }
+
+    /**
+     * Scrolls the chat window to the most recent message.
+     */
+    function scrollToBottom() {
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    /**
+     * Shows or hides the "is typing..." indicator.
+     * @param {boolean} show - Whether to show the indicator.
+     */
+    function showTyping(show) {
+        isLoading = show;
+        typingIndicator.classList.toggle('hidden', !show);
+        if (show) scrollToBottom();
+    }
+
+    /**
+     * Toggles the chat input and button usability.
+     * @param {boolean} enabled - Whether to enable the form.
+     */
+    function toggleFormEnabled(enabled) {
+        chatInput.disabled = !enabled;
+        chatForm.querySelector('button').disabled = !enabled;
+    }
+    
+    /**
+     * Adds a message to the internal history.
+     * @param {'user' | 'model'} role
+     * @param {string} text
+     */
+    function updateChatHistory(role, text) {
+        chatHistory.push({ role: role, parts: [{ text: text }] });
+    }
+
+    /**
+     * Sends the current chat history to the Gemini API.
+     */
+    async function getBotResponse() {
+        showTyping(true);
+        toggleFormEnabled(false);
+        
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    contents: chatHistory,
+                    systemInstruction: {
+                        parts: [{ text: alexSystemPrompt }]
+                    }
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`API Error: ${response.statusText}`);
+            }
+
+            const result = await response.json();
+            
+            if (result.candidates && result.candidates.length > 0) {
+                const botResponse = result.candidates[0].content.parts[0].text;
+                addMessageToUI(botResponse, 'model');
+                updateChatHistory('model', botResponse);
+            } else {
+                throw new Error("Invalid API response format.");
+            }
+
+        } catch (error) {
+            console.error(error);
+            addMessageToUI("Sorry, I'm having a little trouble connecting right now. Please try again in a moment.", 'model');
+        } finally {
+            showTyping(false);
+            toggleFormEnabled(true);
+            chatInput.focus();
+        }
+    }
+
+    // --- Event Handlers ---
+    chatForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const userInput = chatInput.value.trim();
+
+        if (userInput && !isLoading) {
+            addMessageToUI(userInput, 'user');
+            updateChatHistory('user', userInput);
+            chatInput.value = '';
+            getBotResponse();
+        }
+    });
+
+    // --- Initializations ---
+    
+    // Add the bot's initial greeting to history and UI
+    const initialGreeting = "Hello! I'm Alex's Interactive Resume, an AI assistant built to answer your questions about his skills and experience. How can I help you today?";
+    updateChatHistory('model', initialGreeting);
+    addMessageToUI(initialGreeting, 'model');
+
+});
+</script>
+```
