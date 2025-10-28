@@ -34,7 +34,16 @@ export const insertContactMessageSchema = createInsertSchema(contactMessages)
     message: z.string().min(1, "Message is required"),
   });
 
+export const chatMessageSchema = z.object({
+  message: z.string().min(1, "Message is required"),
+  conversationHistory: z.array(z.object({
+    role: z.enum(['user', 'model']),
+    text: z.string(),
+  })).optional(),
+});
+
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
 export type InsertContactMessage = z.infer<typeof insertContactMessageSchema>;
 export type ContactMessage = typeof contactMessages.$inferSelect;
+export type ChatMessage = z.infer<typeof chatMessageSchema>;
