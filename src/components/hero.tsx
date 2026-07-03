@@ -1,5 +1,6 @@
+"use client";
+
 import { Download, Mail } from "lucide-react";
-import headshotImg from "@assets/image_1759889927464.png";
 
 export default function Hero() {
   const scrollToContact = () => {
@@ -28,7 +29,7 @@ export default function Hero() {
           <div className="flex justify-center md:justify-end order-2 md:order-1">
             <div className="relative">
               <img 
-                src={headshotImg} 
+                src="/alex-chan-headshot.png" 
                 alt="Alex Chan - Professional Headshot" 
                 className="rounded-2xl shadow-2xl w-full max-w-md h-auto object-cover"
                 data-testid="img-headshot"

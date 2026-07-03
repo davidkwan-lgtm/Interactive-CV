@@ -1,4 +1,5 @@
-import { useState } from "react";
+"use client";
+
 import { Mail, Linkedin, FileText, Send } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

@@ -1,11 +1,11 @@
+import About from "@/components/about";
+import Chatbot from "@/components/chatbot";
+import Contact from "@/components/contact";
+import EducationSkills from "@/components/education-skills";
+import Experience from "@/components/experience";
+import Footer from "@/components/footer";
 import Header from "@/components/header";
 import Hero from "@/components/hero";
-import About from "@/components/about";
-import Experience from "@/components/experience";
-import EducationSkills from "@/components/education-skills";
-import Contact from "@/components/contact";
-import Footer from "@/components/footer";
-import Chatbot from "@/components/chatbot";
 
 export default function Home() {
   return (

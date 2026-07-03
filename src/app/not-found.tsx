@@ -1,5 +1,5 @@
-import { Card, CardContent } from "@/components/ui/card";
 import { AlertCircle } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function NotFound() {
   return (
@@ -12,7 +12,7 @@ export default function NotFound() {
           </div>
 
           <p className="mt-4 text-sm text-gray-600">
-            Did you forget to add the page to the router?
+            The page you requested does not exist.
           </p>
         </CardContent>
       </Card>
