@@ -57,6 +57,12 @@ export interface OpenRouterResponse {
   };
 }
 
+export function getOpenRouterApiKey(
+  env: Record<string, string | undefined> = process.env,
+) {
+  return env.OPENROUTER_API_KEY ?? env.OPENROUTER_API_KEY_ALEX ?? null;
+}
+
 export function toOpenRouterMessages(input: ChatMessage): OpenRouterMessage[] {
   const history = input.conversationHistory ?? [];
 

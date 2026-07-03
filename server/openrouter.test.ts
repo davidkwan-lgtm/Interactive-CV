@@ -5,6 +5,7 @@ import {
   CHATBOT_SYSTEM_PROMPT,
   OPENROUTER_MODEL,
   extractAssistantMessage,
+  getOpenRouterApiKey,
   toOpenRouterMessages,
 } from "./openrouter.ts";
 
@@ -52,4 +53,12 @@ test("extractAssistantMessage returns null when the response has no assistant co
   });
 
   assert.equal(message, null);
+});
+
+test("getOpenRouterApiKey falls back to OPENROUTER_API_KEY_ALEX", () => {
+  const apiKey = getOpenRouterApiKey({
+    OPENROUTER_API_KEY_ALEX: "alex-key",
+  });
+
+  assert.equal(apiKey, "alex-key");
 });

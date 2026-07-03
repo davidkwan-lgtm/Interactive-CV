@@ -5,6 +5,7 @@ import { insertContactMessageSchema, chatMessageSchema } from "@shared/schema";
 import {
   OPENROUTER_MODEL,
   extractAssistantMessage,
+  getOpenRouterApiKey,
   toOpenRouterMessages,
 } from "./openrouter";
 import { z } from "zod";
@@ -57,7 +58,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/chat', async (req, res) => {
     try {
       const validatedData = chatMessageSchema.parse(req.body);
-      const apiKey = process.env.OPENROUTER_API_KEY;
+      const apiKey = getOpenRouterApiKey();
       
       if (!apiKey) {
         return res.status(500).json({
