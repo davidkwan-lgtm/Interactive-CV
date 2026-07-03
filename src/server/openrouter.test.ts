@@ -11,7 +11,7 @@ import {
   toOpenRouterMessages,
 } from "./openrouter.ts";
 
-test("OPENROUTER_MODEL uses the default live OpenRouter model", () => {
+test("OPENROUTER_MODEL uses the configured default OpenRouter model", () => {
   assert.equal(OPENROUTER_MODEL, DEFAULT_OPENROUTER_MODEL);
 });
 

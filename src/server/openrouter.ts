@@ -1,4 +1,4 @@
-export const DEFAULT_OPENROUTER_MODEL = "meta-llama/llama-3.3-70b-instruct:free";
+export const DEFAULT_OPENROUTER_MODEL = "deepseek/deepseek-v4-flash";
 export const OPENROUTER_MODEL =
   process.env.OPENROUTER_MODEL ?? DEFAULT_OPENROUTER_MODEL;
 
