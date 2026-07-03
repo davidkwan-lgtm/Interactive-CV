@@ -5,6 +5,7 @@ import {
   CHATBOT_SYSTEM_PROMPT,
   DEFAULT_OPENROUTER_MODEL,
   OPENROUTER_MODEL,
+  createFallbackChatMessage,
   extractAssistantMessage,
   getOpenRouterApiKey,
   toOpenRouterMessages,
@@ -66,4 +67,13 @@ test("getOpenRouterApiKey falls back to OPENROUTER_API_KEY_ALEX", () => {
   });
 
   assert.equal(apiKey, "alex-key");
+});
+
+test("createFallbackChatMessage answers Prudential questions from the resume", () => {
+  const message = createFallbackChatMessage({
+    message: "What did Alex do at Prudential?",
+  });
+
+  assert.match(message, /PRUHealth campaign/);
+  assert.match(message, /45%/);
 });

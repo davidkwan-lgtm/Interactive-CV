@@ -3,6 +3,7 @@ import { z } from "zod";
 import { chatMessageSchema } from "@shared/schema";
 import {
   OPENROUTER_MODEL,
+  createFallbackChatMessage,
   extractAssistantMessage,
   getOpenRouterApiKey,
   toOpenRouterMessages,
@@ -40,10 +41,11 @@ export async function POST(request: Request) {
       console.error("OpenRouter API Error:", openRouterResponse.status, errorText);
       return NextResponse.json(
         {
-          success: false,
-          message: "Failed to get response from AI assistant",
+          success: true,
+          message: createFallbackChatMessage(validatedData),
+          fallback: true,
         },
-        { status: 500 },
+        { status: 200 },
       );
     }
 
@@ -51,13 +53,11 @@ export async function POST(request: Request) {
     const botMessage = extractAssistantMessage(data);
 
     if (!botMessage) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Invalid response from AI assistant",
-        },
-        { status: 500 },
-      );
+      return NextResponse.json({
+        success: true,
+        message: createFallbackChatMessage(validatedData),
+        fallback: true,
+      });
     }
 
     return NextResponse.json({

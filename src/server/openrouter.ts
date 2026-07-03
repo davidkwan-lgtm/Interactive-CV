@@ -96,3 +96,25 @@ export function extractAssistantMessage(response: OpenRouterResponse) {
   const content = response.choices?.[0]?.message?.content;
   return typeof content === "string" && content.trim() ? content : null;
 }
+
+export function createFallbackChatMessage(input: ChatRequest) {
+  const question = input.message.toLowerCase();
+
+  if (question.includes("prudential") || question.includes("intern")) {
+    return "At Prudential Hong Kong, Alex worked as a Digital Marketing Intern on the PRUHealth campaign, helped lift social media engagement by 45%, analyzed 1,000+ customer responses, and collaborated with designers on promotional materials.";
+  }
+
+  if (question.includes("skill") || question.includes("tool")) {
+    return "Alex brings marketing and analytics skills including Google Analytics, Excel, PowerPoint, Canva, social media management, market research, data analysis, campaign management, and strategic planning.";
+  }
+
+  if (question.includes("education") || question.includes("university") || question.includes("degree")) {
+    return "Alex studied Business Administration at Lingnan University, majoring in Marketing with a minor in Business Analytics and expected graduation in May 2025.";
+  }
+
+  if (question.includes("kpmg") || question.includes("competition")) {
+    return "Alex participated in the KPMG Case Competition, developing a sustainability-focused business strategy and presenting financial analysis and recommendations to KPMG partners.";
+  }
+
+  return "Alex is a Lingnan University Business Administration graduate focused on marketing and business analytics, with experience in digital marketing at Prudential Hong Kong, case competition strategy work with KPMG, and strengths in analytics, campaign management, and communication.";
+}
