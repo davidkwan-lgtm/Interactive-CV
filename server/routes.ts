@@ -4,7 +4,7 @@ import {
   handleChat,
   handleCreateContactMessage,
   handleGetContactMessages,
-} from "./api-handlers";
+} from "./api-handlers.js";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission endpoint

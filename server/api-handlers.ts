@@ -1,11 +1,11 @@
-import { storage } from "./storage";
-import { insertContactMessageSchema, chatMessageSchema } from "../shared/schema";
+import { storage } from "./storage.js";
+import { insertContactMessageSchema, chatMessageSchema } from "../shared/schema.js";
 import {
   OPENROUTER_MODEL,
   extractAssistantMessage,
   getOpenRouterApiKey,
   toOpenRouterMessages,
-} from "./openrouter";
+} from "./openrouter.js";
 import { z } from "zod";
 
 export async function handleCreateContactMessage(req: any, res: any) {

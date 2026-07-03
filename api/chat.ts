@@ -4,7 +4,7 @@ import {
   extractAssistantMessage,
   getOpenRouterApiKey,
   toOpenRouterMessages,
-} from "../server/openrouter";
+} from "../server/openrouter.js";
 
 const chatMessageSchema = z.object({
   message: z.string().min(1, "Message is required"),
