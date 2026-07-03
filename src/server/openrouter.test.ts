@@ -3,11 +3,16 @@ import assert from "node:assert/strict";
 
 import {
   CHATBOT_SYSTEM_PROMPT,
+  DEFAULT_OPENROUTER_MODEL,
   OPENROUTER_MODEL,
   extractAssistantMessage,
   getOpenRouterApiKey,
   toOpenRouterMessages,
 } from "./openrouter.ts";
+
+test("OPENROUTER_MODEL uses the default live OpenRouter model", () => {
+  assert.equal(OPENROUTER_MODEL, DEFAULT_OPENROUTER_MODEL);
+});
 
 test("toOpenRouterMessages includes the system prompt and conversation history", () => {
   const messages = toOpenRouterMessages({

@@ -1,4 +1,6 @@
-export const OPENROUTER_MODEL = "deepseek/deepseek-v4-flash:free";
+export const DEFAULT_OPENROUTER_MODEL = "meta-llama/llama-3.3-70b-instruct:free";
+export const OPENROUTER_MODEL =
+  process.env.OPENROUTER_MODEL ?? DEFAULT_OPENROUTER_MODEL;
 
 export const CHATBOT_SYSTEM_PROMPT = `You are Alex Chan's Interactive Resume - an AI assistant helping recruiters and potential employers learn about Alex's professional background.
 
