@@ -1,5 +1,5 @@
 import { storage } from "./storage";
-import { insertContactMessageSchema, chatMessageSchema } from "@shared/schema";
+import { insertContactMessageSchema, chatMessageSchema } from "../shared/schema";
 import {
   OPENROUTER_MODEL,
   extractAssistantMessage,

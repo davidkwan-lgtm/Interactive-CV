@@ -1,4 +1,4 @@
-import type { ChatMessage } from "@shared/schema";
+import type { ChatMessage } from "../shared/schema";
 
 export const OPENROUTER_MODEL = "deepseek/deepseek-v4-flash:free";
 
