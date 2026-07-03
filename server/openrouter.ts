@@ -1,5 +1,3 @@
-import type { ChatMessage } from "../shared/schema";
-
 export const OPENROUTER_MODEL = "deepseek/deepseek-v4-flash:free";
 
 export const CHATBOT_SYSTEM_PROMPT = `You are Alex Chan's Interactive Resume - an AI assistant helping recruiters and potential employers learn about Alex's professional background.
@@ -57,13 +55,23 @@ export interface OpenRouterResponse {
   };
 }
 
+export interface ChatConversationMessage {
+  role: "user" | "model";
+  text: string;
+}
+
+export interface ChatRequest {
+  message: string;
+  conversationHistory?: ChatConversationMessage[];
+}
+
 export function getOpenRouterApiKey(
   env: Record<string, string | undefined> = process.env,
 ) {
   return env.OPENROUTER_API_KEY ?? env.OPENROUTER_API_KEY_ALEX ?? null;
 }
 
-export function toOpenRouterMessages(input: ChatMessage): OpenRouterMessage[] {
+export function toOpenRouterMessages(input: ChatRequest): OpenRouterMessage[] {
   const history = input.conversationHistory ?? [];
 
   return [
