@@ -2,6 +2,11 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertContactMessageSchema, chatMessageSchema } from "@shared/schema";
+import {
+  OPENROUTER_MODEL,
+  extractAssistantMessage,
+  toOpenRouterMessages,
+} from "./openrouter";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -48,11 +53,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Chat endpoint - proxies requests to Gemini API securely
+  // Chat endpoint - proxies requests to OpenRouter securely
   app.post('/api/chat', async (req, res) => {
     try {
       const validatedData = chatMessageSchema.parse(req.body);
-      const apiKey = process.env.VITE_GEMINI_API_KEY;
+      const apiKey = process.env.OPENROUTER_API_KEY;
       
       if (!apiKey) {
         return res.status(500).json({
@@ -61,79 +66,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      // System prompt with Alex's information
-      const SYSTEM_PROMPT = `You are Alex Chan's Interactive Resume - an AI assistant helping recruiters and potential employers learn about Alex's professional background. 
-
-Alex Chan Profile:
-- Recent Business Administration graduate from Lingnan University (Hong Kong)
-- Major: Marketing | Minor: Business Analytics
-- Expected graduation: May 2025
-
-Experience:
-1. Digital Marketing Intern at Prudential Hong Kong (Summer 2024)
-   - Executed PRUHealth campaign, increasing social media engagement by 45%
-   - Conducted market research, analyzing 1,000+ customer responses
-   - Collaborated with design team on promotional materials
-
-2. KPMG Case Competition Participant (Spring 2024)
-   - Developed business strategy for sustainability challenge
-   - Presented financial analysis and recommendations to KPMG partners
-   - Demonstrated strategic thinking and teamwork
-
-Skills:
-Technical: Google Analytics, Excel, PowerPoint, Canva, Social Media Management
-Business: Market Research, Data Analysis, Campaign Management, Strategic Planning
-Soft Skills: Leadership, Communication, Team Collaboration, Problem-solving
-
-Education:
-- Lingnan University - Bachelor of Business Administration
-- Major: Marketing, Minor: Business Analytics
-- Expected Graduation: May 2025
-- Relevant Coursework: Digital Marketing, Consumer Behavior, Business Analytics, Strategic Management
-
-Guidelines:
-- Answer questions about Alex's experience, skills, education, and qualifications
-- Be professional, concise, and highlight relevant achievements
-- If asked about something not in the profile, politely say you don't have that information
-- Encourage recruiters to download the resume or contact Alex for more details
-- Keep responses focused and recruiter-friendly (2-3 sentences typically)`;
-
-      // Build conversation history
-      const conversationHistory = validatedData.conversationHistory || [];
-      const chatHistory = [
-        { role: 'user', parts: [{ text: SYSTEM_PROMPT }] },
-        { role: 'model', parts: [{ text: "Understood. I am Alex's Interactive Resume and will answer questions about his professional profile following those guidelines." }] },
-        ...conversationHistory.map(msg => ({
-          role: msg.role,
-          parts: [{ text: msg.text }]
-        })),
-        { role: 'user', parts: [{ text: validatedData.message }] }
-      ];
-
-      // Call Gemini API
-      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-      
-      const geminiResponse = await fetch(apiUrl, {
+      const openRouterResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-          contents: chatHistory
+          model: OPENROUTER_MODEL,
+          messages: toOpenRouterMessages(validatedData),
         }),
       });
 
-      if (!geminiResponse.ok) {
-        const errorText = await geminiResponse.text();
-        console.error('Gemini API Error:', geminiResponse.status, errorText);
+      if (!openRouterResponse.ok) {
+        const errorText = await openRouterResponse.text();
+        console.error('OpenRouter API Error:', openRouterResponse.status, errorText);
         return res.status(500).json({
           success: false,
           message: 'Failed to get response from AI assistant'
         });
       }
 
-      const data = await geminiResponse.json();
-      const botMessage = data.candidates?.[0]?.content?.parts?.[0]?.text;
+      const data = await openRouterResponse.json();
+      const botMessage = extractAssistantMessage(data);
 
       if (!botMessage) {
         return res.status(500).json({
